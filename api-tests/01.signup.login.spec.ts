@@ -54,7 +54,33 @@ test.describe.serial('auth flow', () => {
         await expect(loginResponse.status()).toEqual(200)
         await expect(loginResponseJSON.user.email).toEqual(email)
         await expect(loginResponseJSON.user.username).toEqual(username)
+
         // console.log(loginResponseJSON)
         // console.log(authtoken)
+    })
+
+    test('create article', async ({ request }) => {
+        const articleCreateResponse = await request.post(`${baseURL}/articles/`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${authToken}`
+            },
+            data: {
+                "article": {
+                    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    "description": "This is the description of this article",
+                    "tagList": [
+                        "api"
+                    ],
+                    "title": "Conduit API v2 has been released"
+                }
+            }
+        })
+
+        const articleCreateResponseJSON = await articleCreateResponse.json()
+
+        await expect(articleCreateResponse.status()).toEqual(201)
+        await expect(articleCreateResponseJSON.article.title).toEqual('Conduit API v2 has been released')
+        await expect(articleCreateResponseJSON.article.tagList[0]).toEqual('api'.toUpperCase())
     })
 })
