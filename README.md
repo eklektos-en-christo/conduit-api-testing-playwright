@@ -2,8 +2,8 @@
 API test automation for the Conduit (RealWorld) API using Playwright and TypeScript. Covers user auth, articles endpoints with CRUD test coverage. Uses a reusable authentication mechanism to avoid repeating signup/login boilerplate.
 
 ## Functionality Tested
-- **Signup** — success case with real assertions
-- **Login** - success case, verified via getAuthToken() helper
+- **Signup** — success case
+- **Login** - success case
 - **Articles** - create, get, update, and delete, create without auth and token
 
 ## Tech Stack
