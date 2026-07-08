@@ -103,4 +103,43 @@ test.describe.serial('auth flow', () => {
 
         // console.log(articleFetchResponseJSON)
     })
+
+    test('update article', async ({ request }) => {
+        const updateArticleResponse = await request.put(`${baseURL}/articles/${articleSlug}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${authToken}`
+            },
+            data: {
+                "article": {
+                    "body": "This is the body of this article v2",
+                    "description": "something else v2",
+                    "slug": articleSlug,
+                    "tagList": [
+                        "updates"
+                    ],
+                    "title": "Conduit API v3 has been released"
+                }
+            }
+        })
+
+        const updateArticleResponseJSON = await updateArticleResponse.json()
+        articleSlug = updateArticleResponseJSON.article.slug
+
+        await expect(updateArticleResponse.status()).toEqual(200)
+        await expect(updateArticleResponseJSON.article.title).toEqual("Conduit API v3 has been released")
+
+        // console.log(updateArticleResponseJSON)
+    })
+
+    test('delete article', async ({ request }) => {
+        const deleteArticleResponse = await request.delete(`${baseURL}/articles/${articleSlug}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${authToken}`
+            }
+        })
+
+        await expect(deleteArticleResponse.status()).toEqual(204)
+    })
 })
