@@ -102,7 +102,7 @@ test('create, update, and delete article', async ({ request }) => {
     expect(body.article.author.username).toEqual(result.responseBody.user.username)
 
     let articleSlug = body.article.slug
-    console.log(articleSlug)
+    // console.log(articleSlug)
 
     const updateArticleResponse = await request.put(`${auth.baseURL}/articles/${articleSlug}`, {
         headers: { 'Content-Type': 'application/json', 'Authorization': `Token ${result.token}` },
@@ -126,7 +126,7 @@ test('create, update, and delete article', async ({ request }) => {
     expect(body.article.title).toEqual('Conduit API v3 has been released')
     expect(body.article.author.username).toEqual(result.responseBody.user.username)
 
-    console.log(body.article.slug)
+    // console.log(body.article.slug)
 
     const deleteArticleResponse = await request.delete(`${auth.baseURL}/articles/${articleSlug}`, {
         headers: { 'Content-Type': 'application/json', 'Authorization': `Token ${result.token}` }
