@@ -3,8 +3,8 @@ API test automation for the Conduit (RealWorld) API using Playwright and TypeScr
 
 ## Functionality Tested
 - **Auth**
-*Signup* — success case with real assertions
-*Login* - success case, verified via getAuthToken() helper
+**Signup** — success case with real assertions
+**Login** - success case, verified via getAuthToken() helper
 
 ## Tech Stack
 
