@@ -1,6 +1,7 @@
 import { test, expect, request } from '@playwright/test'
 
 let authToken: string
+let articleSlug: string
 
 const baseURL = 'https://conduit-api.bondaracademy.com/api'
 const email = `test${Date.now()}@gmail.com`
@@ -78,9 +79,28 @@ test.describe.serial('auth flow', () => {
         })
 
         const articleCreateResponseJSON = await articleCreateResponse.json()
+        articleSlug = await articleCreateResponseJSON.article.slug
 
         await expect(articleCreateResponse.status()).toEqual(201)
         await expect(articleCreateResponseJSON.article.title).toEqual('Conduit API v2 has been released')
         await expect(articleCreateResponseJSON.article.tagList[0]).toEqual('api'.toUpperCase())
+
+        // console.log(articleCreateResponseJSON)
+        // console.log(articleSlug)
+    })
+
+    test('get article', async ({ request }) => {
+        const articleFetchResponse = await request.get(`${baseURL}/articles/${articleSlug}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${authToken}`
+            }
+        })
+
+        const articleFetchResponseJSON = await articleFetchResponse.json()
+        await expect(articleFetchResponse.status()).toEqual(200)
+        await expect(articleFetchResponseJSON.article.title).toEqual("Conduit API v2 has been released")
+
+        // console.log(articleFetchResponseJSON)
     })
 })
