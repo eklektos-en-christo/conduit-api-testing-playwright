@@ -1,7 +1,5 @@
 import { APIRequestContext } from '@playwright/test'
 
-export const baseURL = 'https://conduit-api.bondaracademy.com/api'
-
 export async function generateUser() {
     const email = `test${Date.now()}@gmail.com`
     const password = `${Math.random().toString(36).substring(2, 12)}`
@@ -14,12 +12,12 @@ export async function generateUser() {
 
 export async function getAuthToken(request: APIRequestContext) {
     const userObject = await generateUser()
-    await request.post(`${baseURL}/users`, {
+    await request.post(`users`, {
         headers: { "Content-Type": "application/json" },
         data: { user: userObject }
     })
 
-    const loginResponse = await request.post(`${baseURL}/users/login`, {
+    const loginResponse = await request.post('users/login', {
         data: { user: userObject }
     })
     const body = await loginResponse.json()

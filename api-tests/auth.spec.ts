@@ -4,18 +4,18 @@ import * as auth from '../utils/auth'
 test('sign up success', async ({ request }) => {
     const userObject = await auth.generateUser()
 
-    const signUpResponse = await request.post(`${auth.baseURL}/users`, {
+    const signUpResponse = await request.post('users', {
         headers: { "Content-Type": "application/json" },
         data: {
             "user": userObject
         }
     })
 
-    const signUpResponseJSON = await signUpResponse.json()
+    const body = await signUpResponse.json()
 
     expect(signUpResponse.status()).toEqual(201)
-    expect(signUpResponseJSON.user.email).toEqual(userObject.email)
-    expect(signUpResponseJSON.user.username).toEqual(userObject.username)
+    expect(body.user.email).toEqual(userObject.email)
+    expect(body.user.username).toEqual(userObject.username)
     // console.log(signUpResponseJSON)
 })
 

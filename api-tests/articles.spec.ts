@@ -4,7 +4,7 @@ import * as auth from '../utils/auth'
 test('create and get article', async ({ request }) => {
     const result = await auth.getAuthToken(request)
 
-    const articleCreateResponse = await request.post(`${auth.baseURL}/articles/`, {
+    const articleCreateResponse = await request.post('articles/', {
         headers: { 'content-type': 'application/json', 'Authorization': `Token ${result.token}` },
         data: {
             "article": {
@@ -27,7 +27,7 @@ test('create and get article', async ({ request }) => {
     // console.log(body)
     // console.log(result.responseBody)
 
-    const getArticleResponse = await request.get(`${auth.baseURL}/articles/${artilceSlug}`, {
+    const getArticleResponse = await request.get(`articles/${artilceSlug}`, {
         headers: { 'content-type': 'application/json', 'Authorization': `Token ${result.token}` }
     })
 
@@ -42,7 +42,7 @@ test('create and get article', async ({ request }) => {
 
 test('create article without authentication', async ({ request }) => {
 
-    const articleCreateResponse = await request.post(`${auth.baseURL}/articles/`, {
+    const articleCreateResponse = await request.post('articles/', {
         headers: { 'content-type': 'application/json' },
         data: {
             "article": {
@@ -61,7 +61,7 @@ test('create article without authentication', async ({ request }) => {
 })
 
 test('create article with incorrect token', async ({ request }) => {
-    const articleCreateResponse = await request.post(`${auth.baseURL}/articles/`, {
+    const articleCreateResponse = await request.post('articles/', {
         headers: { 'content-type': 'application/json', 'Authorization': `Token kjdkfdhfwrongtoken` },
         data: {
             "article": {
@@ -81,7 +81,7 @@ test('create article with incorrect token', async ({ request }) => {
 test('create, update, and delete article', async ({ request }) => {
     const result = await auth.getAuthToken(request)
 
-    const articleCreateResponse = await request.post(`${auth.baseURL}/articles`, {
+    const articleCreateResponse = await request.post('articles', {
         headers: { 'content-type': 'application/json', 'Authorization': `Token ${result.token}` },
         data: {
             "article": {
@@ -104,7 +104,7 @@ test('create, update, and delete article', async ({ request }) => {
     let articleSlug = body.article.slug
     // console.log(articleSlug)
 
-    const updateArticleResponse = await request.put(`${auth.baseURL}/articles/${articleSlug}`, {
+    const updateArticleResponse = await request.put(`articles/${articleSlug}`, {
         headers: { 'Content-Type': 'application/json', 'Authorization': `Token ${result.token}` },
         data: {
             "article": {
@@ -128,13 +128,13 @@ test('create, update, and delete article', async ({ request }) => {
 
     // console.log(body.article.slug)
 
-    const deleteArticleResponse = await request.delete(`${auth.baseURL}/articles/${articleSlug}`, {
+    const deleteArticleResponse = await request.delete(`articles/${articleSlug}`, {
         headers: { 'Content-Type': 'application/json', 'Authorization': `Token ${result.token}` }
     })
 
     expect(deleteArticleResponse.status()).toEqual(204)
 
-    const fetchDeletedArticle = await request.get(`${auth.baseURL}/articles/${articleSlug}`, {
+    const fetchDeletedArticle = await request.get(`articles/${articleSlug}`, {
         headers: { 'Content-Type': 'application/json', 'Authorization': `Token ${result.token}` }
     })
 
