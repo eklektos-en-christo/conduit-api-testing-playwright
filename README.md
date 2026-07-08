@@ -4,8 +4,7 @@ API test automation for the Conduit (RealWorld) API using Playwright and TypeScr
 ## Functionality Tested
 - **Signup** — success case
 - **Login** - success case
-- **Articles** - create, get, update, and delete, create without auth and token
-
+- **Articles** — create, get, update, delete (full CRUD), plus negative tests for missing and invalid authentication tokens
 ## Tech Stack
 
 - Playwright
@@ -29,4 +28,10 @@ npx playwright test
 Run a specific file:
 ```bash
 npx playwright test api-tests/auth.spec.ts
+```
+
+## View Test Report
+
+```bash
+npx playwright show-report
 ```
