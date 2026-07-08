@@ -26,9 +26,9 @@ test.describe.serial('auth flow', () => {
         const signUpResponseJSON = await signUpResponse.json()
         authToken = signUpResponseJSON.user.token
 
-        await expect(signUpResponse.status()).toEqual(201)
-        await expect(signUpResponseJSON.user.email).toEqual(email)
-        await expect(signUpResponseJSON.user.username).toEqual(username)
+        expect(signUpResponse.status()).toEqual(201)
+        expect(signUpResponseJSON.user.email).toEqual(email)
+        expect(signUpResponseJSON.user.username).toEqual(username)
 
         // console.log(signUpResponseJSON)
         // console.log(authtoken)
@@ -52,9 +52,9 @@ test.describe.serial('auth flow', () => {
         authToken = loginResponseJSON.user.token
 
 
-        await expect(loginResponse.status()).toEqual(200)
-        await expect(loginResponseJSON.user.email).toEqual(email)
-        await expect(loginResponseJSON.user.username).toEqual(username)
+        expect(loginResponse.status()).toEqual(200)
+        expect(loginResponseJSON.user.email).toEqual(email)
+        expect(loginResponseJSON.user.username).toEqual(username)
 
         // console.log(loginResponseJSON)
         // console.log(authtoken)
@@ -81,9 +81,9 @@ test.describe.serial('auth flow', () => {
         const articleCreateResponseJSON = await articleCreateResponse.json()
         articleSlug = await articleCreateResponseJSON.article.slug
 
-        await expect(articleCreateResponse.status()).toEqual(201)
-        await expect(articleCreateResponseJSON.article.title).toEqual('Conduit API v2 has been released')
-        await expect(articleCreateResponseJSON.article.tagList[0]).toEqual('api'.toUpperCase())
+        expect(articleCreateResponse.status()).toEqual(201)
+        expect(articleCreateResponseJSON.article.title).toEqual('Conduit API v2 has been released')
+        expect(articleCreateResponseJSON.article.tagList[0]).toEqual('api'.toUpperCase())
 
         // console.log(articleCreateResponseJSON)
         // console.log(articleSlug)
@@ -98,8 +98,8 @@ test.describe.serial('auth flow', () => {
         })
 
         const articleFetchResponseJSON = await articleFetchResponse.json()
-        await expect(articleFetchResponse.status()).toEqual(200)
-        await expect(articleFetchResponseJSON.article.title).toEqual("Conduit API v2 has been released")
+        expect(articleFetchResponse.status()).toEqual(200)
+        expect(articleFetchResponseJSON.article.title).toEqual("Conduit API v2 has been released")
 
         // console.log(articleFetchResponseJSON)
     })
@@ -126,8 +126,8 @@ test.describe.serial('auth flow', () => {
         const updateArticleResponseJSON = await updateArticleResponse.json()
         articleSlug = updateArticleResponseJSON.article.slug
 
-        await expect(updateArticleResponse.status()).toEqual(200)
-        await expect(updateArticleResponseJSON.article.title).toEqual("Conduit API v3 has been released")
+        expect(updateArticleResponse.status()).toEqual(200)
+        expect(updateArticleResponseJSON.article.title).toEqual("Conduit API v3 has been released")
 
         // console.log(updateArticleResponseJSON)
     })
@@ -140,6 +140,6 @@ test.describe.serial('auth flow', () => {
             }
         })
 
-        await expect(deleteArticleResponse.status()).toEqual(204)
+        expect(deleteArticleResponse.status()).toEqual(204)
     })
 })
