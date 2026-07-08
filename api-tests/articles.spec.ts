@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
 import * as auth from '../utils/auth'
 
-test('create article', async ({ request }) => {
+test('create and get article', async ({ request }) => {
     const result = await auth.getAuthToken(request)
 
     const articleCreateResponse = await request.post(`${auth.baseURL}/articles/`, {
@@ -18,13 +18,26 @@ test('create article', async ({ request }) => {
         }
     })
 
-    const body = await articleCreateResponse.json()
+    let body = await articleCreateResponse.json()
+    const artilceSlug = body.article.slug
 
     expect(body.article.title).toEqual('Conduit API v1 has been released')
     expect(body.article.author.username).toEqual(result.responseBody.user.username)
 
-    console.log(body)
-    console.log(result.responseBody)
+    // console.log(body)
+    // console.log(result.responseBody)
+
+    const getArticleResponse = await request.get(`${auth.baseURL}/articles/${artilceSlug}`, {
+        headers: { 'content-type': 'application/json', 'Authorization': `Token ${result.token}` }
+    })
+
+    body = await getArticleResponse.json()
+
+    expect(getArticleResponse.status()).toEqual(200)
+    expect(body.article.title).toEqual('Conduit API v1 has been released')
+    expect(body.article.author.username).toEqual(result.responseBody.user.username)
+
+    // console.log(body)
 })
 
 test('create article without authentication', async ({ request }) => {
