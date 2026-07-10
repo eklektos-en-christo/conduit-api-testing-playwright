@@ -5,7 +5,7 @@ export async function generateUser() {
     const password = `${Math.random().toString(36).substring(2, 12)}`
     const username = `${Math.random().toString(36).substring(3, 12)}`
 
-    // console.log({ email, password, username })
+    console.log({ email, password, username })
 
     return { email, password, username }
 }
