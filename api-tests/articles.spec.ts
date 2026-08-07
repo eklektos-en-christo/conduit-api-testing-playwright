@@ -24,9 +24,6 @@ test('create and get article', async ({ request }) => {
     expect(body.article.title).toEqual('Conduit API v1 has been released')
     expect(body.article.author.username).toEqual(result.responseBody.user.username)
 
-    // console.log(body)
-    // console.log(result.responseBody)
-
     const getArticleResponse = await request.get(`articles/${artilceSlug}`, {
         headers: { 'content-type': 'application/json', 'Authorization': `Token ${result.token}` }
     })
@@ -36,8 +33,6 @@ test('create and get article', async ({ request }) => {
     expect(getArticleResponse.status()).toEqual(200)
     expect(body.article.title).toEqual('Conduit API v1 has been released')
     expect(body.article.author.username).toEqual(result.responseBody.user.username)
-
-    // console.log(body)
 })
 
 test('create article without authentication', async ({ request }) => {
@@ -102,7 +97,6 @@ test('create, update, and delete article', async ({ request }) => {
     expect(body.article.author.username).toEqual(result.responseBody.user.username)
 
     let articleSlug = body.article.slug
-    // console.log(articleSlug)
 
     const updateArticleResponse = await request.put(`articles/${articleSlug}`, {
         headers: { 'Content-Type': 'application/json', 'Authorization': `Token ${result.token}` },
@@ -125,8 +119,6 @@ test('create, update, and delete article', async ({ request }) => {
     expect(updateArticleResponse.status()).toEqual(200)
     expect(body.article.title).toEqual('Conduit API v3 has been released')
     expect(body.article.author.username).toEqual(result.responseBody.user.username)
-
-    // console.log(body.article.slug)
 
     const deleteArticleResponse = await request.delete(`articles/${articleSlug}`, {
         headers: { 'Content-Type': 'application/json', 'Authorization': `Token ${result.token}` }

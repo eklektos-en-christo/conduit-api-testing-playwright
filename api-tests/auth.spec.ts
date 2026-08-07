@@ -16,7 +16,6 @@ test('sign up success', async ({ request }) => {
     expect(signUpResponse.status()).toEqual(201)
     expect(body.user.email).toEqual(userObject.email)
     expect(body.user.username).toEqual(userObject.username)
-    // console.log(signUpResponseJSON)
 })
 
 test('login success', async ({ request }) => {
@@ -25,6 +24,4 @@ test('login success', async ({ request }) => {
     expect(result.status).toEqual(200)
     expect(result.responseBody.user.email).toBeTruthy()
     expect(result.responseBody.user.token).toBeTruthy()
-
-    // console.log(result)
 })
